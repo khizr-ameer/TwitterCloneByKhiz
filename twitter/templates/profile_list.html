@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+   <center><u> <h1>Twitter Profile List</h1> </u> </center>
+
+<br/>
+
+{% if profiles %}
+    {% for profile in profiles %}
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            
+            {% if profile.profile_image %}
+				    <img src="{{ profile.profile_image.url }}" class="rounded-circle" width=100 height=100>
+				    <br/><br/>
+            {% else %}
+            <img src="{% static "pic 4.jpeg" %}" class="img-fluid rounded-start" alt="...">
+				    {% endif %}
+
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{profile.user.username}}</h5>
+              <p class="card-text"><a href="{%url 'profile' profile.user.id%}">@{{profile.user.username | lower}}</a></p>
+              <p class="card-text"><small class="text-body-secondary">{{profile.date_modified}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+            {% comment %} Username: {{profile.user.username}} </br>
+            Link: @{{profile.user.username | lower}}
+            Last Updated : {{profile.date_modified}} {% endcomment %}
+    {% endfor %}
+{% endif %}
+
+
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand font-weight-bold" href="{% url 'home' %}"><h4>Twitter By Khizar </h4> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <!-- here we check if user is authenticate then show him/her navbar inclide profile list and logout
+        and if not than show him/her register button and login-->
+
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'profile_list' %}">Profile List</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'logout' %}">Logout</a>
+          </li>
+       
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'register' %}">Register</a>
+          </li>
+        {% endif %}
+      
+      </ul>
+
+      {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'profile' request.user.id %}">
+              <i class="fa fa-user"></i> Profile {{ request.user.username }}
+            </a>
+          </li>
+        </ul>
+      {% endif %}
+
+    </div>
+  </div>
+</nav>

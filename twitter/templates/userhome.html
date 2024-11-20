@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-8">
+
+           <center> <u> <h1>Tweets of Users</h1> </u> </center>
+            <br/>
+	        {% for tweets1 in tweets %}
+		    <div class="alert alert-dark" role="alert">
+             <div class="container">
+	         <div class="row">
+		                
+           <div class="col-1">
+              {% if tweets1.user.profile.profile_image %}
+             <img src="{{ tweets1.user.profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">
+                  
+             {% else %}
+         <img src="{{'media/static/default_profile_pic.png' }}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">	
+         {% endif %}
+         </div>
+
+		  <div class="col-11">
+		 {{ tweets1.body }}<br/>
+		 <small class="text-muted">
+		 ({{ tweets1.created_at}}) By
+         <a href={%url 'profile' pk=tweets1.user.id%}>@{{ tweets1.user.username }}</a>
+		  	                
+		  	                
+		 </small>
+    </div><br/><br/>
+	
+   </div>
+   </div>
+   </div>
+   {% endfor %}
+    </div>
+    </div>
+    <div class="col-4">
+        <br/><br/><br/>
+        {% if form %}
+            <form  method=POST>
+            {% csrf_token %}
+            {{ form.as_p }}
+    
+    
+            <button type="submit" class="btn btn-secondary">Post your Tweet!</button>
+            </form>
+            {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
